@@ -1,6 +1,8 @@
-# BluetoothLockUnlock
+# BTProx
 
-To create a C# program that locks and unlocks your Linux PC based on the proximity of your phone's Bluetooth, you'll need to use Bluetooth APIs to detect the phone's presence and interact with Linux system commands for locking and unlocking.
+This project is inspired on the project <https://github.com/ewenchou/bluetooth-proximity> that became unmaintained.
+
+This is a simple first version.
 
 ## Logical steps
 
@@ -27,113 +29,6 @@ You can write a C# program to run on Linux. Here’s a basic outline:
    ```bash
    sudo apt-get install bluez xdotool
    ```
-
-## C# Code for Bluetooth Proximity Lock/Unlock
-
-```csharp
-using System;
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
-
-class BluetoothProximityLock
-{
-private static string phoneBluetoothAddress = "XX:XX:XX:XX:XX:XX"; // Replace with your phone's Bluetooth MAC address
-
-    static async Task Main(string[] args)
-    {
-        bool isPhoneNearby = false;
-
-        while (true)
-        {
-            bool phoneDetected = await IsPhoneNearby();
-
-            if (phoneDetected && !isPhoneNearby)
-            {
-                // Unlock the screen if the phone is detected
-                Console.WriteLine("Phone is nearby. Unlocking the screen.");
-                UnlockScreen();
-                isPhoneNearby = true;
-            }
-            else if (!phoneDetected && isPhoneNearby)
-            {
-                // Lock the screen if the phone is not detected
-                Console.WriteLine("Phone is not nearby. Locking the screen.");
-                LockScreen();
-                isPhoneNearby = false;
-            }
-
-            await Task.Delay(5000); // Check every 5 seconds
-        }
-    }
-
-    private static async Task<bool> IsPhoneNearby()
-    {
-        try
-        {
-            // Run the hcitool to scan for the phone's Bluetooth MAC address
-            Process process = new Process();
-            process.StartInfo.FileName = "hcitool";
-            process.StartInfo.Arguments = $"name {phoneBluetoothAddress}";
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.CreateNoWindow = true;
-            process.Start();
-
-            string output = await process.StandardOutput.ReadToEndAsync();
-            await process.WaitForExitAsync();
-
-            // If the output contains the phone's Bluetooth name, it is nearby
-            return !string.IsNullOrEmpty(output);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error detecting Bluetooth device: {ex.Message}");
-            return false;
-        }
-    }
-
-    private static void LockScreen()
-    {
-        // Execute the lock screen command
-        ExecuteCommand("xdg-screensaver lock");
-    }
-
-    private static void UnlockScreen()
-    {
-        // Simulate an unlock (could be replaced with actual unlock logic if needed)
-        ExecuteCommand("xdotool mousemove 0 0"); // Moves the mouse to simulate activity
-    }
-
-    private static void ExecuteCommand(string command)
-    {
-        try
-        {
-            Process process = new Process();
-            process.StartInfo.FileName = "bash";
-            process.StartInfo.Arguments = $"-c \"{command}\"";
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.RedirectStandardError = true;
-            process.Start();
-
-            string output = process.StandardOutput.ReadToEnd();
-            string error = process.StandardError.ReadToEnd();
-
-            process.WaitForExit();
-
-            if (!string.IsNullOrEmpty(error))
-            {
-                Console.WriteLine($"Command error: {error}");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error executing command: {ex.Message}");
-        }
-    }
-}
-```
 
 ## Steps
 
