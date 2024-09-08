@@ -1,6 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BluetoothLoackUnlock", "src/BluetoothLoackUnlock.csproj", "{DB7633D9-B129-4246-A5E2-7E5D580135CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTProx", "src/BTProx.csproj", "{DB7633D9-B129-4246-A5E2-7E5D580135CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{929CF8C0-C8C5-465B-9CE5-8A89A99578B2}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		LICENSE = LICENSE
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
