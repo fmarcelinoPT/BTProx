@@ -72,3 +72,11 @@ You can write a C# program to run on Linux. Here’s a basic outline:
 - If detected, it simulates unlocking the screen. If not detected, it locks the screen.
 - This can be extended further for more security or custom interactions, like requiring authentication or a specific
   Bluetooth signal strength threshold for proximity detection.
+
+### License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+### Author Information
+
+This role was created at 2024 by [fmarcelinoPT](https://github.com/fmarcelinoPT). Feel free to customize or extend the role to fit your needs.
